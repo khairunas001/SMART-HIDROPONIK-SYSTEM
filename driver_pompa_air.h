@@ -55,6 +55,10 @@
 
 #define PIN_RELAY_PA 4
 
+//-------------- variable global untuk automasi pompa/kran air
+bool autoMode = true;  // true = otomatis pakai sensor, false = manual via MQTT
+
+
 void matikan_pompa_air() {
   //matikan pompa
   digitalWrite(PIN_RELAY_PA, LOW);

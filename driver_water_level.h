@@ -44,4 +44,20 @@ void loop_water_level() {
   //               isWaterHigh ? "CLOSE (OFF)" : "OPEN (ON)");
 }
 
+
+//-------------------jika perlu fitur manual dan auto pompa atau kran air
+// void loop_water_level() {
+//   if (!autoMode) return;  // ⛔ jika bukan auto mode, jangan ubah pompa
+
+//   waterLevelValue = digitalRead(PIN_WATER_LEVEL);
+
+//   if (waterLevelValue == LOW) {
+//     isWaterHigh = true;
+//     matikan_pompa_air(); // saat air tinggi, matikan pompa
+//   } else {
+//     isWaterHigh = false;
+//     nyalakan_pompa_air(); // saat air rendah, hidupkan pompa
+//   }
+// }
+
 #endif

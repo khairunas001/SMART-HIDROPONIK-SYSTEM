@@ -93,6 +93,10 @@ String TOPIC_KELEMBABAN_UDARA = "vku";
 String TOPIC_TDS = "vtds";
 String TOPIC_PH = "vph";
 
+// TOPIK MODE KRAN ATAU POMPA AIR
+String TOPIC_MODE_AIR = "mode_air";  // topik baru untuk ubah mode
+// ------------------------------------------------------------
+
 PubSubClient mqtt(espClient);
 
 Every timer_mqtt(2000);  //setiap 2 detik
@@ -157,6 +161,19 @@ void onMqttMessage(char* topic, byte* payload, unsigned int length) {
       matikan_pompa_ph_down();
     }
   }
+
+  // topik untuk konfigurasi auto atau manual pompa/ kran air
+  TOPIC_SUB = set_prefix_telemetry + TOPIC_MODE_AIR;
+  if (mqtt_topik == TOPIC_SUB) {
+    if (mqtt_pesan == "auto") {
+      autoMode = true;
+      Serial.println("[MODE] Pompa air diatur ke AUTO (sensor aktif).");
+    }
+    if (mqtt_pesan == "manual") {
+      autoMode = false;
+      Serial.println("[MODE] Pompa air diatur ke MANUAL (kendali MQTT).");
+    }
+  }
 }
 
 
@@ -193,6 +210,10 @@ void connectMQTT() {
         mqtt.subscribe(TOPIC_SUB.c_str());
         Serial.println(TOPIC_SUB);
         TOPIC_SUB = set_prefix_telemetry + TOPIC_POMPA_PHU;
+        mqtt.subscribe(TOPIC_SUB.c_str());
+        Serial.println(TOPIC_SUB);
+        // MODE AUTO/MANUAL POMPA ATAU KRAN AIR
+        TOPIC_SUB = set_prefix_telemetry + TOPIC_MODE_AIR;
         mqtt.subscribe(TOPIC_SUB.c_str());
         Serial.println(TOPIC_SUB);
       } else {
