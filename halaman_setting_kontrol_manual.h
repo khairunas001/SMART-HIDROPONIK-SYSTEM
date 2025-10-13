@@ -56,21 +56,131 @@
   =========================================================
 */
 
-String txt_status_pompa[2] = { "OFF", "ON " };
+// String txt_status_pompa[2] = { "OFF", "ON " };
+// void halaman_setting_kontrol_manual() {
+
+//   HALAMAN_AKHIR = 7005;
+//   HALAMAN_AWAL = 7001;
+
+//   if (halaman == 7001) {
+//     lcd.setCursor(0, 0);
+//     lcd.print("Set Pompa:");
+//     lcd.setCursor(0, 1);
+//     lcd.printf(">Air:%s   PHU:%s", txt_status_pompa[set_status_pompa_air], txt_status_pompa[set_status_pompa_phu]);
+//     lcd.setCursor(0, 2);
+//     lcd.printf(" NA :%s   PHD:%s", txt_status_pompa[set_status_pompa_na], txt_status_pompa[set_status_pompa_phd]);
+//     lcd.setCursor(0, 3);
+//     lcd.printf(" NB :%s", txt_status_pompa[set_status_pompa_nb]);
+
+//     navigasi_button_value(set_status_pompa_air, 1, 0, 1);
+//     navigasi_button_ok_back(7001, 7);
+//     navigasi_button_up_down(HALAMAN_AWAL, HALAMAN_AKHIR);
+//     update_status_pompa_air();
+//   }
+
+//   if (halaman == 7002) {
+//     lcd.setCursor(0, 0);
+//     lcd.print("Set Pompa:");
+//     lcd.setCursor(0, 1);
+//     lcd.printf(" Air:%s   PHU:%s", txt_status_pompa[set_status_pompa_air], txt_status_pompa[set_status_pompa_phu]);
+//     lcd.setCursor(0, 2);
+//     lcd.printf(">NA :%s   PHD:%s", txt_status_pompa[set_status_pompa_na], txt_status_pompa[set_status_pompa_phd]);
+//     lcd.setCursor(0, 3);
+//     lcd.printf(" NB :%s", txt_status_pompa[set_status_pompa_nb]);
+
+//     navigasi_button_value(set_status_pompa_na, 1, 0, 1);
+//     navigasi_button_ok_back(7002, 7);
+//     navigasi_button_up_down(HALAMAN_AWAL, HALAMAN_AKHIR);
+//     update_status_pompa_nutrisi();
+//   }
+
+//   if (halaman == 7003) {
+//     lcd.setCursor(0, 0);
+//     lcd.print("Set Pompa:");
+//     lcd.setCursor(0, 1);
+//     lcd.printf(" Air:%s   PHU:%s", txt_status_pompa[set_status_pompa_air], txt_status_pompa[set_status_pompa_phu]);
+//     lcd.setCursor(0, 2);
+//     lcd.printf(" NA :%s   PHD:%s", txt_status_pompa[set_status_pompa_na], txt_status_pompa[set_status_pompa_phd]);
+//     lcd.setCursor(0, 3);
+//     lcd.printf(">NB :%s", txt_status_pompa[set_status_pompa_nb]);
+
+//     navigasi_button_value(set_status_pompa_nb, 1, 0, 1);
+//     navigasi_button_ok_back(7003, 7);
+//     navigasi_button_up_down(HALAMAN_AWAL, HALAMAN_AKHIR);
+//     update_status_pompa_nutrisi();
+//   }
+//   if (halaman == 7004) {
+//     lcd.setCursor(0, 0);
+//     lcd.print("Set Pompa:");
+//     lcd.setCursor(0, 1);
+//     lcd.printf(" Air:%s  >PHU:%s", txt_status_pompa[set_status_pompa_air], txt_status_pompa[set_status_pompa_phu]);
+//     lcd.setCursor(0, 2);
+//     lcd.printf(" NA :%s   PHD:%s", txt_status_pompa[set_status_pompa_na], txt_status_pompa[set_status_pompa_phd]);
+//     lcd.setCursor(0, 3);
+//     lcd.printf(" NB :%s", txt_status_pompa[set_status_pompa_nb]);
+
+//     navigasi_button_value(set_status_pompa_phu, 1, 0, 1);
+//     navigasi_button_ok_back(7004, 7);
+//     navigasi_button_up_down(HALAMAN_AWAL, HALAMAN_AKHIR);
+//     update_status_pompa_nutrisi();
+//   }
+//   if (halaman == 7005) {
+//     lcd.setCursor(0, 0);
+//     lcd.print("Set Pompa:");
+//     lcd.setCursor(0, 1);
+//     lcd.printf(" Air:%s   PHU:%s", txt_status_pompa[set_status_pompa_air], txt_status_pompa[set_status_pompa_phu]);
+//     lcd.setCursor(0, 2);
+//     lcd.printf(" NA :%s  >PHD:%s", txt_status_pompa[set_status_pompa_na], txt_status_pompa[set_status_pompa_phd]);
+//     lcd.setCursor(0, 3);
+//     lcd.printf(" NB :%s", txt_status_pompa[set_status_pompa_nb]);
+
+//     navigasi_button_value(set_status_pompa_phd, 1, 0, 1);
+//     navigasi_button_ok_back(7005, 7);
+//     navigasi_button_up_down(HALAMAN_AWAL, HALAMAN_AKHIR);
+//     update_status_pompa_nutrisi();
+//   }
+// }
+
+
+/*
+  =========================================================
+   Modul : Halaman Setting Kontrol Manual Pompa + Sistem Auto
+   Author: shmukti + mod by khairunas
+
+   Deskripsi:
+     - Menu untuk ON/OFF pompa manual.
+     - Termasuk halaman baru untuk set sistem otomatis (AT:ON / OFF)
+  =========================================================
+*/
+
+String txt_status_pompa[2] = {"OFF", "ON "};
+int set_status_sistem_auto = 0; // 0 = OFF, 1 = ON (AUTO)
+
 void halaman_setting_kontrol_manual() {
 
-  HALAMAN_AKHIR = 7005;
-  HALAMAN_AWAL = 7001;
+  // Sinkronisasi dari sistem utama
+  set_status_sistem_auto = autoMode ? 1 : 0;
 
+
+  HALAMAN_AWAL = 7001;
+  HALAMAN_AKHIR = 7006; // Tambah sampai 7006
+
+  // === Halaman 7001 (Pompa Air) ===
   if (halaman == 7001) {
     lcd.setCursor(0, 0);
     lcd.print("Set Pompa:");
     lcd.setCursor(0, 1);
-    lcd.printf(">Air:%s   PHU:%s", txt_status_pompa[set_status_pompa_air], txt_status_pompa[set_status_pompa_phu]);
+    lcd.printf(">Air:%s   PHU:%s",
+                txt_status_pompa[set_status_pompa_air],
+                txt_status_pompa[set_status_pompa_phu]);
     lcd.setCursor(0, 2);
-    lcd.printf(" NA :%s   PHD:%s", txt_status_pompa[set_status_pompa_na], txt_status_pompa[set_status_pompa_phd]);
+    lcd.printf(" NA :%s   PHD:%s",
+                txt_status_pompa[set_status_pompa_na],
+                txt_status_pompa[set_status_pompa_phd]);
     lcd.setCursor(0, 3);
-    lcd.printf(" NB :%s", txt_status_pompa[set_status_pompa_nb]);
+    lcd.printf(" NB :%s   AT:%s",
+                txt_status_pompa[set_status_pompa_nb],
+                txt_status_pompa[set_status_sistem_auto]);
 
     navigasi_button_value(set_status_pompa_air, 1, 0, 1);
     navigasi_button_ok_back(7001, 7);
@@ -78,15 +188,22 @@ void halaman_setting_kontrol_manual() {
     update_status_pompa_air();
   }
 
+  // === Halaman 7002 (Pompa NA) ===
   if (halaman == 7002) {
     lcd.setCursor(0, 0);
     lcd.print("Set Pompa:");
     lcd.setCursor(0, 1);
-    lcd.printf(" Air:%s   PHU:%s", txt_status_pompa[set_status_pompa_air], txt_status_pompa[set_status_pompa_phu]);
+    lcd.printf(" Air:%s   PHU:%s",
+                txt_status_pompa[set_status_pompa_air],
+                txt_status_pompa[set_status_pompa_phu]);
     lcd.setCursor(0, 2);
-    lcd.printf(">NA :%s   PHD:%s", txt_status_pompa[set_status_pompa_na], txt_status_pompa[set_status_pompa_phd]);
+    lcd.printf(">NA :%s   PHD:%s",
+                txt_status_pompa[set_status_pompa_na],
+                txt_status_pompa[set_status_pompa_phd]);
     lcd.setCursor(0, 3);
-    lcd.printf(" NB :%s", txt_status_pompa[set_status_pompa_nb]);
+    lcd.printf(" NB :%s   AT:%s",
+                txt_status_pompa[set_status_pompa_nb],
+                txt_status_pompa[set_status_sistem_auto]);
 
     navigasi_button_value(set_status_pompa_na, 1, 0, 1);
     navigasi_button_ok_back(7002, 7);
@@ -94,49 +211,103 @@ void halaman_setting_kontrol_manual() {
     update_status_pompa_nutrisi();
   }
 
+  // === Halaman 7003 (Pompa NB) ===
   if (halaman == 7003) {
     lcd.setCursor(0, 0);
     lcd.print("Set Pompa:");
     lcd.setCursor(0, 1);
-    lcd.printf(" Air:%s   PHU:%s", txt_status_pompa[set_status_pompa_air], txt_status_pompa[set_status_pompa_phu]);
+    lcd.printf(" Air:%s   PHU:%s",
+                txt_status_pompa[set_status_pompa_air],
+                txt_status_pompa[set_status_pompa_phu]);
     lcd.setCursor(0, 2);
-    lcd.printf(" NA :%s   PHD:%s", txt_status_pompa[set_status_pompa_na], txt_status_pompa[set_status_pompa_phd]);
+    lcd.printf(" NA :%s   PHD:%s",
+                txt_status_pompa[set_status_pompa_na],
+                txt_status_pompa[set_status_pompa_phd]);
     lcd.setCursor(0, 3);
-    lcd.printf(">NB :%s", txt_status_pompa[set_status_pompa_nb]);
+    lcd.printf(">NB :%s   AT:%s",
+                txt_status_pompa[set_status_pompa_nb],
+                txt_status_pompa[set_status_sistem_auto]);
 
     navigasi_button_value(set_status_pompa_nb, 1, 0, 1);
     navigasi_button_ok_back(7003, 7);
     navigasi_button_up_down(HALAMAN_AWAL, HALAMAN_AKHIR);
     update_status_pompa_nutrisi();
   }
+
+  // === Halaman 7004 (Pompa PHU) ===
   if (halaman == 7004) {
     lcd.setCursor(0, 0);
     lcd.print("Set Pompa:");
     lcd.setCursor(0, 1);
-    lcd.printf(" Air:%s  >PHU:%s", txt_status_pompa[set_status_pompa_air], txt_status_pompa[set_status_pompa_phu]);
+    lcd.printf(" Air:%s  >PHU:%s",
+                txt_status_pompa[set_status_pompa_air],
+                txt_status_pompa[set_status_pompa_phu]);
     lcd.setCursor(0, 2);
-    lcd.printf(" NA :%s   PHD:%s", txt_status_pompa[set_status_pompa_na], txt_status_pompa[set_status_pompa_phd]);
+    lcd.printf(" NA :%s   PHD:%s",
+                txt_status_pompa[set_status_pompa_na],
+                txt_status_pompa[set_status_pompa_phd]);
     lcd.setCursor(0, 3);
-    lcd.printf(" NB :%s", txt_status_pompa[set_status_pompa_nb]);
+    lcd.printf(" NB :%s   AT:%s",
+                txt_status_pompa[set_status_pompa_nb],
+                txt_status_pompa[set_status_sistem_auto]);
 
     navigasi_button_value(set_status_pompa_phu, 1, 0, 1);
     navigasi_button_ok_back(7004, 7);
     navigasi_button_up_down(HALAMAN_AWAL, HALAMAN_AKHIR);
     update_status_pompa_nutrisi();
   }
+
+  // === Halaman 7005 (Pompa PHD) ===
   if (halaman == 7005) {
     lcd.setCursor(0, 0);
     lcd.print("Set Pompa:");
     lcd.setCursor(0, 1);
-    lcd.printf(" Air:%s   PHU:%s", txt_status_pompa[set_status_pompa_air], txt_status_pompa[set_status_pompa_phu]);
+    lcd.printf(" Air:%s   PHU:%s",
+                txt_status_pompa[set_status_pompa_air],
+                txt_status_pompa[set_status_pompa_phu]);
     lcd.setCursor(0, 2);
-    lcd.printf(" NA :%s  >PHD:%s", txt_status_pompa[set_status_pompa_na], txt_status_pompa[set_status_pompa_phd]);
+    lcd.printf(" NA :%s  >PHD:%s",
+                txt_status_pompa[set_status_pompa_na],
+                txt_status_pompa[set_status_pompa_phd]);
     lcd.setCursor(0, 3);
-    lcd.printf(" NB :%s", txt_status_pompa[set_status_pompa_nb]);
+    lcd.printf(" NB :%s   AT:%s",
+                txt_status_pompa[set_status_pompa_nb],
+                txt_status_pompa[set_status_sistem_auto]);
 
     navigasi_button_value(set_status_pompa_phd, 1, 0, 1);
     navigasi_button_ok_back(7005, 7);
     navigasi_button_up_down(HALAMAN_AWAL, HALAMAN_AKHIR);
     update_status_pompa_nutrisi();
   }
+
+  // === Halaman 7006 (Sistem AUTO) ===
+  if (halaman == 7006) {
+    lcd.setCursor(0, 0);
+    lcd.print("Set Pompa:");
+    lcd.setCursor(0, 1);
+    lcd.printf(" Air:%s   PHU:%s",
+                txt_status_pompa[set_status_pompa_air],
+                txt_status_pompa[set_status_pompa_phu]);
+    lcd.setCursor(0, 2);
+    lcd.printf(" NA :%s   PHD:%s",
+                txt_status_pompa[set_status_pompa_na],
+                txt_status_pompa[set_status_pompa_phd]);
+    lcd.setCursor(0, 3);
+    lcd.printf(" NB :%s  >AT:%s",
+                txt_status_pompa[set_status_pompa_nb],
+                txt_status_pompa[set_status_sistem_auto]);
+
+    // Navigasi tombol
+    navigasi_button_value(set_status_sistem_auto, 1, 0, 1);
+    navigasi_button_ok_back(7006, 7);
+    navigasi_button_up_down(HALAMAN_AWAL, HALAMAN_AKHIR);
+
+    // === Sinkronisasi ke variabel global autoMode ===
+    if (set_status_sistem_auto == 1) {
+      autoMode = true;
+    } else {
+      autoMode = false;
+    }
+  }
 }
+
