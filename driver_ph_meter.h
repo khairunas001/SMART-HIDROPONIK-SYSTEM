@@ -10,13 +10,13 @@
      (misal: jika terbaca 6.80, set phOffset = 0.20).
 */
 
-#define PIN_PH   34       // OUT modul pH ke GPIO34 (ADC1)
+#define PIN_PH   35       // OUT modul pH ke GPIO34 (ADC1)
 const float PH_NEUTRAL_V = 2.50; // Tegangan ~netral pH7 (asumsi umum)
 const float PH_SLOPE  = 3.50;   // Kemiringan: pH = 7 + (2.5 - V)*3.5 (sederhana)
 float phOffset        = 0.00;   // Koreksi kalibrasi sederhana (geser hasil pH)
 
 // Baca beberapa kali lalu rata-rata untuk mengurangi noise
-float readVoltageAverage(uint8_t pin, uint16_t samples = 10) {
+float readVoltageAverage(uint8_t pin, uint16_t samples = 20) {
   uint32_t sum = 0;
   for (uint16_t i = 0; i < samples; i++) {
     sum += analogRead(pin);
