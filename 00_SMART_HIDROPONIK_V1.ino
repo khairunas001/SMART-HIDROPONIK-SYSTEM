@@ -151,11 +151,11 @@ void setup() {
   lcd.setCursor(0, 0);
   lcd.print("Smart Hidroponik");
   lcd.setCursor(0, 1);
-  lcd.print("Satpel Bantul");
+  lcd.print("Satpel DIY");
   lcd.setCursor(0, 2);
-  lcd.print("BBPV Surakarta");
+  lcd.print("BPVP Surakarta");
   lcd.setCursor(0, 3);
-  lcd.print("Version 1.0");
+  lcd.print("Version 2.0");
   delay(5000);
   lcd.clear();
   beep();
