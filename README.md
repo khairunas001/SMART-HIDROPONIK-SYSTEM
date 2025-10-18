@@ -58,19 +58,5 @@ Local control panel allows manual operations and configuration of system paramet
 
 ---
 
-## 👥 Team Members
-| Name | Role |
-|------|------|
-| Khairunnas Rhamadhani Wiasanto | IoT System Developer |
-| Khanza Yuwinda Akbar | Software Integration |
-| Muhammad Al-Jabbar | Hardware Design |
-| Muhammad Annas Jayadiatma | Firmware Developer |
-| Nur Habibah Muthaharoh Adzra | Documentation |
-| Oktafiana Dwi Iskandari | Interface & Testing |
-| Putu Deanita I Desta Suryani | Assembly |
-| R. Abdullah Hammami | Debugging & QA |
-
----
-
 ## 🧾 License
 This project was developed for educational purposes under **BPVP Surakarta & BLKPP DIY (2025)**.
