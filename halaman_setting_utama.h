@@ -73,7 +73,7 @@
 
 void halaman_setting_utama() {
 
-  HALAMAN_AKHIR = 7;
+  HALAMAN_AKHIR = 8;
   HALAMAN_AWAL = 1;
 
   if (halaman == 1) {
@@ -174,6 +174,21 @@ void halaman_setting_utama() {
     lcd.print(">Kontrol Manual");
 
     navigasi_button_ok_back(7001, 0);
+    navigasi_button_up_down(HALAMAN_AWAL, HALAMAN_AKHIR);
+  }
+  
+  if (halaman == 8) {
+
+    lcd.setCursor(0, 0);
+    lcd.print(" Setting Jam");
+    lcd.setCursor(0, 1);
+    lcd.print(" Setting Tanggal");
+    lcd.setCursor(0, 2);
+    lcd.print(" Kontrol Manual");
+    lcd.setCursor(0, 3);
+    lcd.print(">Set Water Level");
+
+    navigasi_button_ok_back(8001, 0);
     navigasi_button_up_down(HALAMAN_AWAL, HALAMAN_AKHIR);
   }
 }

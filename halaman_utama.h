@@ -71,9 +71,17 @@ void halaman_utama() {
     lcd.setCursor(0, 0);
     lcd.printf("TDS:%.4dppm",nilai_tds);
     lcd.setCursor(13, 0);
-    lcd.printf("WiFi:%S%S", WiFi.status() == WL_CONNECTED ? "W" : "X", mqtt.connected() ? "M" : "X");
+    lcd.printf("WiFi:%S%S", WiFi.status() == WL_CONNECTED ? "W" : ".", mqtt.connected() ? "M" : ".");
     lcd.setCursor(0, 1);
     lcd.printf("PH :%.2d", nilai_ph);
+   
+    waterLevelValue = digitalRead(PIN_WATER_LEVEL);
+    lcd.setCursor(7, 1);
+    if (waterLevelValue == 0){
+      lcd.print("WE");
+    } else {
+      lcd.print("WF");
+    }
     lcd.setCursor(10, 1);
     lcd.printf("T.Air:%2d", nilai_suhu_air);
 

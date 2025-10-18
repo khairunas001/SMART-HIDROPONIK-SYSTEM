@@ -1,3 +1,4 @@
+#include "Arduino.h"
 
 void navigasi_button_ok_back(int target_halaman_ok, int target_halaman_back) {
   if (BTN_OK) {
@@ -63,6 +64,24 @@ void navigasi_button_value(int &var, int step, int minVal, int maxVal) {
   }
 }
 
+void navigasi_button_value(byte &var, int step, int minVal, int maxVal) {
+  if (BTN_VAL_UP) {  // tombol ditekan (LOW aktif)
+    var = var + step;
+    if (var > maxVal) {
+      var = minVal;
+    }
+    simpan_memory();
+    beep();
+  }
+  if (BTN_VAL_DOWN) {
+    var = var - step;
+    if (var < minVal) {
+      var = maxVal;
+    }
+    simpan_memory();
+    beep();
+  }
+}
 // Array angka
 char number_code[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 int jumlahAngka = sizeof(number_code) / sizeof(number_code[0]);

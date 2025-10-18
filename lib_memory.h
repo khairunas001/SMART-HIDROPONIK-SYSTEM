@@ -44,6 +44,7 @@ void baca_memory() {
   set_wifi_password = preferences.getString("wifi_pass", set_wifi_password);
   set_timer_telemetry = preferences.getString("timer_tel", set_timer_telemetry);
   set_prefix_telemetry = preferences.getString("prefix_tel", set_prefix_telemetry);
+  set_waterlevel_automode = preferences.getUChar("waterlvl_mode", set_waterlevel_automode);
   // --- variabel jadwal ---
   for (int i = 0; i < JUMLAH_JADWAL; i++) {
     jadwal_status[i] = preferences.getInt(("jadwal_status_" + String(i)).c_str(), jadwal_status[i]);
@@ -116,6 +117,11 @@ void simpan_memory() {
   if (preferences.getString("prefix_tel", "") != set_prefix_telemetry) {
     preferences.putString("prefix_tel", set_prefix_telemetry);
     Serial.println("Update Prefix Telemetry: " + set_prefix_telemetry);
+  }
+
+  if (preferences.getUChar("waterlvl_mode", 0) != set_waterlevel_automode) {
+    preferences.putUChar("waterlvl_mode", set_waterlevel_automode);
+    Serial.println("Update Water Level Mode: " + set_waterlevel_automode);
   }
 
   // --- variabel jadwal ---

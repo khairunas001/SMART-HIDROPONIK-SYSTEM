@@ -85,6 +85,7 @@ String TOPIC_POMPA_NB = "nb";
 String TOPIC_POMPA_PHU = "phu";
 String TOPIC_POMPA_PHD = "phd";
 String TOPIC_POMPA_AIR = "air";
+String TOPIC_SOLENOID = "sv";
 
 // TOPIK SENSOR
 String TOPIC_SUHU_AIR = "vsa";
@@ -92,6 +93,7 @@ String TOPIC_SUHU_UDARA = "vsu";
 String TOPIC_KELEMBABAN_UDARA = "vku";
 String TOPIC_TDS = "vtds";
 String TOPIC_PH = "vph";
+String TOPIC_SENSOR_CAHAYA = "vsc";
 
 // TOPIK MODE KRAN ATAU POMPA AIR
 String TOPIC_MODE_AIR = "mode_air";  // topik baru untuk ubah mode
@@ -162,15 +164,25 @@ void onMqttMessage(char* topic, byte* payload, unsigned int length) {
     }
   }
 
+  TOPIC_SUB = set_prefix_telemetry + TOPIC_SOLENOID;
+  if (mqtt_topik == TOPIC_SUB) {
+    if (mqtt_pesan == "1") {
+      nyalakan_solenoid();
+    }
+    if (mqtt_pesan == "0") {
+      matikan_solenoid();
+    }
+  }
+
   // topik untuk konfigurasi auto atau manual pompa/ kran air
   TOPIC_SUB = set_prefix_telemetry + TOPIC_MODE_AIR;
   if (mqtt_topik == TOPIC_SUB) {
     if (mqtt_pesan == "auto") {
-      autoMode = true;
+      set_waterlevel_automode = true;
       Serial.println("[MODE] Pompa air diatur ke AUTO (sensor aktif).");
     }
     if (mqtt_pesan == "manual") {
-      autoMode = false;
+      set_waterlevel_automode = false;
       Serial.println("[MODE] Pompa air diatur ke MANUAL (kendali MQTT).");
     }
   }

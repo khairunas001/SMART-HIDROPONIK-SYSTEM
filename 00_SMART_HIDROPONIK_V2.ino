@@ -108,13 +108,16 @@
 #include "driver_pompa_nutrisi.h"
 #include "driver_rtc.h"
 #include "driver_wifi.h"
-#include "driver_mqtt.h"
+#include "driver_solenoid.h"
 #include "driver_water_level.h"
+#include "driver_mqtt.h"
 
+#include "driver_sensor_cahaya.h"
 #include "lib_telemetry.h"
 #include "lib_navigasi_menu.h"
 #include "lib_jadwal.h"
 #include "halaman_utama.h"
+#include "halaman_setting_waterlevel.h"
 #include "halaman_setting_utama.h"
 #include "halaman_setting_jadwal.h"
 #include "halaman_setting_jadwal_detail.h"
@@ -139,25 +142,28 @@ void setup() {
   setup_ph_meter();
   setup_pompa_air();
   setup_pompa_nutrisi();
+  setup_solenoid();
   setup_rtc();
   setup_wifi();
   setup_mqtt();
   setup_telemetry();
   setup_water_level();
+  setup_sensor_cahaya();
   greeting_buzer();
 
 
   // Tampilkan pesan pembuka
   lcd.setCursor(0, 0);
-  lcd.print("Smart Hidroponik");
+  lcd.print("Smart Hydroponic");
   lcd.setCursor(0, 1);
-  lcd.print("Satpel DIY");
+  lcd.print("BLKPP DIY");
   lcd.setCursor(0, 2);
-  lcd.print("BPVP Surakarta");
+  lcd.print("Kelompok 2");
   lcd.setCursor(0, 3);
-  lcd.print("Version 2.0");
+  lcd.print("BPVP Surakarta V2.0");
   delay(5000);
   lcd.clear();
+
   beep();
 }
 
@@ -167,10 +173,11 @@ void loop() {
   loop_telemetry();
   loop_jadwal();
   loop_water_level();
-
+  loop_sensor_cahaya();
   
   halaman_utama();
   halaman_setting_utama();
+  halaman_setting_waterlevel();
   halaman_setting_jadwal();
   halaman_setting_jadwal_detail();
   halaman_setting_jam();

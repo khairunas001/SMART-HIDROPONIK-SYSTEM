@@ -50,13 +50,11 @@
 */
 
 // perlu ini karena akan didefinisikan 2 kali di sini dan di
-#ifndef DRIVER_POMPA_AIR_H
-#define DRIVER_POMPA_AIR_H
 
-#define PIN_RELAY_PA 4
+#define PIN_RELAY_PA 33
 
 //-------------- variable global untuk automasi pompa/kran air
-bool autoMode = true;  // true = otomatis pakai sensor, false = manual via MQTT
+//bool set_waterlevel_automode = true;  // true = otomatis pakai sensor, false = manual via MQTT
 
 
 void matikan_pompa_air() {
@@ -91,5 +89,3 @@ void update_status_pompa_air() {
     }
   }
 }
-
-#endif

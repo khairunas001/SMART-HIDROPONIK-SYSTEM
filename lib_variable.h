@@ -1,3 +1,4 @@
+#include "Arduino.h"
 #include "WString.h"
 /*
   =========================================================
@@ -90,12 +91,17 @@ int status_pompa_na = 0;
 int status_pompa_nb = 0;
 int status_pompa_phu = 0;
 int status_pompa_phd = 0;
+int status_solenoid = 0;
 
 int set_status_pompa_air = 0;
 int set_status_pompa_na = 0;
 int set_status_pompa_nb = 0;
 int set_status_pompa_phu = 0;
 int set_status_pompa_phd = 0;
+int set_status_solenoid = 0;
+
+//-------------- variable global untuk automasi pompa/kran air
+byte set_waterlevel_automode = 1;  // true = otomatis pakai sensor, false = manual via MQTT
 
 int nilai_kelembaban_udara = 0;
 int nilai_suhu_udara = 0;
@@ -141,3 +147,5 @@ int jadwal_set_pompa_na[JUMLAH_JADWAL] = { 1, 0, 0, 0, 0 };
 int jadwal_set_pompa_nb[JUMLAH_JADWAL] = { 1, 0, 0, 0, 0 };
 int jadwal_set_pompa_phu[JUMLAH_JADWAL] = { 0, 0, 0, 0, 0 };
 int jadwal_set_pompa_phd[JUMLAH_JADWAL] = { 1, 0, 0, 0, 0 };
+
+String txt_on_off[2] = { "OFF", "ON " };

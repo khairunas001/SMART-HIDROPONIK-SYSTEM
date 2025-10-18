@@ -99,6 +99,17 @@ void loop_telemetry() {
       Serial.print(TOPIC_PUBLISH);
       Serial.print(" -> ");
       Serial.println(payload);
+
+
+      int cahaya = read_sensor_cahaya();
+
+      payload = String(cahaya);
+      TOPIC_PUBLISH = set_prefix_telemetry + TOPIC_SENSOR_CAHAYA;
+      mqtt.publish(TOPIC_PUBLISH.c_str(), payload.c_str());
+      Serial.print("[PUB] ");
+      Serial.print(TOPIC_PUBLISH);
+      Serial.print(" -> ");
+      Serial.println(payload);
     }
   }
 }

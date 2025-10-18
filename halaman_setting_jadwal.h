@@ -1,5 +1,4 @@
 
-String txt_on_off[2] = { "OFF", "ON " };
 void halaman_setting_jadwal() {
 
   HALAMAN_AWAL = 1001;

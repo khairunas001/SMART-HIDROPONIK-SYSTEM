@@ -149,17 +149,17 @@
 
    Deskripsi:
      - Menu untuk ON/OFF pompa manual.
-     - Termasuk halaman baru untuk set sistem otomatis (AT:ON / OFF)
+     - Termasuk halaman baru untuk set sistem otomatis (SV :ON / OFF)
   =========================================================
 */
 
 String txt_status_pompa[2] = {"OFF", "ON "};
-int set_status_sistem_auto = 0; // 0 = OFF, 1 = ON (AUTO)
+
 
 void halaman_setting_kontrol_manual() {
 
   // Sinkronisasi dari sistem utama
-  set_status_sistem_auto = autoMode ? 1 : 0;
+  //set_status_solenoid = set_waterlevel_automode ? 1 : 0;
 
 
   HALAMAN_AWAL = 7001;
@@ -178,9 +178,9 @@ void halaman_setting_kontrol_manual() {
                 txt_status_pompa[set_status_pompa_na],
                 txt_status_pompa[set_status_pompa_phd]);
     lcd.setCursor(0, 3);
-    lcd.printf(" NB :%s   AT:%s",
+    lcd.printf(" NB :%s   SV :%s",
                 txt_status_pompa[set_status_pompa_nb],
-                txt_status_pompa[set_status_sistem_auto]);
+                txt_status_pompa[set_status_solenoid]);
 
     navigasi_button_value(set_status_pompa_air, 1, 0, 1);
     navigasi_button_ok_back(7001, 7);
@@ -201,9 +201,9 @@ void halaman_setting_kontrol_manual() {
                 txt_status_pompa[set_status_pompa_na],
                 txt_status_pompa[set_status_pompa_phd]);
     lcd.setCursor(0, 3);
-    lcd.printf(" NB :%s   AT:%s",
+    lcd.printf(" NB :%s   SV :%s",
                 txt_status_pompa[set_status_pompa_nb],
-                txt_status_pompa[set_status_sistem_auto]);
+                txt_status_pompa[set_status_solenoid]);
 
     navigasi_button_value(set_status_pompa_na, 1, 0, 1);
     navigasi_button_ok_back(7002, 7);
@@ -224,9 +224,9 @@ void halaman_setting_kontrol_manual() {
                 txt_status_pompa[set_status_pompa_na],
                 txt_status_pompa[set_status_pompa_phd]);
     lcd.setCursor(0, 3);
-    lcd.printf(">NB :%s   AT:%s",
+    lcd.printf(">NB :%s   SV :%s",
                 txt_status_pompa[set_status_pompa_nb],
-                txt_status_pompa[set_status_sistem_auto]);
+                txt_status_pompa[set_status_solenoid]);
 
     navigasi_button_value(set_status_pompa_nb, 1, 0, 1);
     navigasi_button_ok_back(7003, 7);
@@ -247,9 +247,9 @@ void halaman_setting_kontrol_manual() {
                 txt_status_pompa[set_status_pompa_na],
                 txt_status_pompa[set_status_pompa_phd]);
     lcd.setCursor(0, 3);
-    lcd.printf(" NB :%s   AT:%s",
+    lcd.printf(" NB :%s   SV :%s",
                 txt_status_pompa[set_status_pompa_nb],
-                txt_status_pompa[set_status_sistem_auto]);
+                txt_status_pompa[set_status_solenoid]);
 
     navigasi_button_value(set_status_pompa_phu, 1, 0, 1);
     navigasi_button_ok_back(7004, 7);
@@ -270,9 +270,9 @@ void halaman_setting_kontrol_manual() {
                 txt_status_pompa[set_status_pompa_na],
                 txt_status_pompa[set_status_pompa_phd]);
     lcd.setCursor(0, 3);
-    lcd.printf(" NB :%s   AT:%s",
+    lcd.printf(" NB :%s   SV :%s",
                 txt_status_pompa[set_status_pompa_nb],
-                txt_status_pompa[set_status_sistem_auto]);
+                txt_status_pompa[set_status_solenoid]);
 
     navigasi_button_value(set_status_pompa_phd, 1, 0, 1);
     navigasi_button_ok_back(7005, 7);
@@ -293,21 +293,16 @@ void halaman_setting_kontrol_manual() {
                 txt_status_pompa[set_status_pompa_na],
                 txt_status_pompa[set_status_pompa_phd]);
     lcd.setCursor(0, 3);
-    lcd.printf(" NB :%s  >AT:%s",
+    lcd.printf(" NB :%s  >SV :%s",
                 txt_status_pompa[set_status_pompa_nb],
-                txt_status_pompa[set_status_sistem_auto]);
+                txt_status_pompa[set_status_solenoid]);
 
     // Navigasi tombol
-    navigasi_button_value(set_status_sistem_auto, 1, 0, 1);
+    navigasi_button_value(set_status_solenoid, 1, 0, 1);
     navigasi_button_ok_back(7006, 7);
     navigasi_button_up_down(HALAMAN_AWAL, HALAMAN_AKHIR);
+    update_status_solenoid();
 
-    // === Sinkronisasi ke variabel global autoMode ===
-    if (set_status_sistem_auto == 1) {
-      autoMode = true;
-    } else {
-      autoMode = false;
-    }
   }
 }
 
