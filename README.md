@@ -23,7 +23,7 @@ The system includes:
 ## 📱 IoT MQTT Dashboard
 The system sends telemetry data to an **IoT MQTT Panel App**, where users can monitor and control devices remotely.
 
-![Dashboard Mobile](./img/dashboard%20mobile.jpg)
+![Dashboard Mobile](./img/dashboardmobile.jpg)
 
 Data displayed on the dashboard includes:
 - Temperature & Humidity  
